@@ -67,7 +67,7 @@ const CartItems = () => {
       // console.log(sum)
       }, [order]);
       const clearCart = () => {
-        alert('items has been deleted')
+        alert('order is placed')
         setOrder([]);
       };
 
