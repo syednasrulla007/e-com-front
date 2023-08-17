@@ -66,10 +66,17 @@ const CartItems = () => {
         order && order.forEach((x)=>sum = sum +parseInt(x.price.split('').splice(1).filter((x)=>x!==',').join(''),10)*x.qty)
       // console.log(sum)
       }, [order]);
-      const clearCart = () => {
-        alert('order is placed')
-        setOrder([]);
-      };
+      // const clearCart = () => {
+      //   alert('order is placed')
+      //   setOrder([]);
+      // };
+  const handleCheck=async()=>{
+ const token = sessionStorage.getItem('Token')
+      await axios.put('https://e-commerce-backend-rdg9.onrender.com/checkout',{token:token})
+      // .then((res)=>console.log(res))
+      await axios.post('https://e-commerce-backend-rdg9.onrender.com/getorder',{token:token})
+      .then((res)=>setOrder(res.data.orders))
+      }
 
       
 
@@ -148,7 +155,7 @@ const CartItems = () => {
             <hr />
             <div className='carttotal1'><h2>TOTAL</h2><span>₹{sum}</span></div>
             { 
-               (order && order.length===0)?<></>:<button className='add-cart-btn' onClick={clearCart}>CheckOut</button>
+               (order && order.length===0)?<></>:<button className='add-cart-btn' onClick={handleCheck}>CheckOut</button>
              }
           </div>
         </div>
